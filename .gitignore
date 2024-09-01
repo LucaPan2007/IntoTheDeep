@@ -80,7 +80,4 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 # Project exclude paths
-/.github/
-/doc/
-/gradle/
-/libs/
+go
