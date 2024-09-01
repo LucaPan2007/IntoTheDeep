@@ -82,7 +82,5 @@ lint/tmp/
 # Project exclude paths
 /.github/
 /doc/
-/FtcRobotController/
 /gradle/
 /libs/
-/TeamCode/
