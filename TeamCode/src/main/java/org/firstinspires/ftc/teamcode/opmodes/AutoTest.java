@@ -21,6 +21,8 @@ public class AutoTest extends AutoBase {
         TrajectoryActionBuilder testTrajectory2Builder = testTrajectoryBuilder.fresh()
                 .strafeTo(v(20, 20));
 
+
+
         Action testTrajectory = testTrajectoryBuilder.build();
         Action testTrajectory2 = testTrajectory2Builder.build();
 
