@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+import static org.firstinspires.ftc.teamcode.common.AutoUtil.*;
+
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
@@ -7,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.ActionQueue;
 import org.firstinspires.ftc.teamcode.common.Log;
 import org.firstinspires.ftc.teamcode.enums.AutoStartPos;
+import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.tasks.Task;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -18,7 +22,7 @@ public abstract class AutoBase extends LinearOpMode {
     public AutoStartPos startPos = AutoStartPos.UNKNOWN;
     public OpenCvCamera camera;
 
-//    public SampleMecanumDrive drive;
+    public MecanumDrive drive;
     public Task task;
 
     public double extendoPower, liftPower, hangPower;
@@ -60,13 +64,15 @@ public abstract class AutoBase extends LinearOpMode {
         Log log = new Log(this.telemetry);
         instance = this;
 
+        drive = new MecanumDrive(this.hardwareMap, p(0, 0, 0));
+
         onInit();
 
-        if (startPos == AutoStartPos.UNKNOWN) {
-            log.add("Auto starting position not set.");
-            log.tick();
-            return;
-        }
+//        if (startPos == AutoStartPos.UNKNOWN) {
+//            log.add("Auto starting position not set.");
+//            log.tick();
+//            return;
+//        }
 
         state = State.INIT;
         enableVision();

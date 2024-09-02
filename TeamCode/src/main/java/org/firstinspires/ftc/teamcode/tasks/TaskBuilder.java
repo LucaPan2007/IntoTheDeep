@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.tasks;
 
 
+import com.acmerobotics.roadrunner.Action;
+
 import org.firstinspires.ftc.teamcode.common.Log;
 
 import java.util.function.Supplier;
@@ -36,5 +38,9 @@ public class TaskBuilder {
         return new ExecuteTask(() -> {
             Log.getInstance().add(name, line);
         });
+    }
+
+    public static ActionTask action(Action action) {
+        return new ActionTask(action);
     }
 }
