@@ -8,9 +8,13 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.common.ActionQueue;
+import org.firstinspires.ftc.teamcode.common.GamepadEx;
 import org.firstinspires.ftc.teamcode.common.Log;
 import org.firstinspires.ftc.teamcode.enums.AutoStartPos;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+import org.firstinspires.ftc.teamcode.subsystems.Linkage;
+import org.firstinspires.ftc.teamcode.subsystems.Pivot;
 import org.firstinspires.ftc.teamcode.tasks.Task;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -19,12 +23,15 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public abstract class AutoBase extends LinearOpMode {
     public static State state = State.DEFAULT;
     static AutoBase instance = null;
-    public AutoStartPos startPos = AutoStartPos.UNKNOWN;
+    public AutoStartPos startPos = AutoStartPos.LEFT;
     public OpenCvCamera camera;
 
     public MecanumDrive drive;
-    public Task task;
+    public Pivot pivot;
+    public Linkage linkage;
 
+
+    public Task task;
     public double extendoPower, liftPower, hangPower;
 
     public ActionQueue actionQueue = new ActionQueue();
@@ -47,7 +54,7 @@ public abstract class AutoBase extends LinearOpMode {
         return result;
     }
 
-    public void onInit() {
+    public void onInit() throws InterruptedException {
     }
 
     public void onInitTick() {
@@ -61,13 +68,20 @@ public abstract class AutoBase extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        pivot= new Pivot(this.hardwareMap);
         Log log = new Log(this.telemetry);
         instance = this;
 
+
+
         drive = new MecanumDrive(this.hardwareMap, p(0, 0, 0));
 
-        onInit();
 
+
+
+        onInit();
+        //pivot.setParallelDown();
+        //pivot.collect();
 //        if (startPos == AutoStartPos.UNKNOWN) {
 //            log.add("Auto starting position not set.");
 //            log.tick();
